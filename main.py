@@ -1,49 +1,37 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
+from ship import Ship  
 
 fig, ax = plt.subplots()
+ax.set_xlim(-100, 100)
+ax.set_ylim(-100, 100)
 
-point1, = plt.plot([], [], 'ro')  # red point
-point2, = plt.plot([], [], 'bo')  # blue point
+# Create two ships
+ship1 = Ship(ax, start_pos=(0, 50), speed=20, color='r')
+ship2 = Ship(ax, start_pos=(0, -50), speed=10, color='b')
+ship1.set_direction(np.pi / 2)  
+ship2.set_direction(-np.pi / 2)
 
-interpolants = range(1000000)
+# Settings
 framerate = 60
-
-def rotate(x, y, rad):
-    rot_matrix = np.array([
-        [np.cos(rad), -np.sin(rad)],
-        [np.sin(rad),  np.cos(rad)]
-    ])
-    vector = np.array([[x], [y]])
-    rotated = rot_matrix @ vector
-    return rotated[0, 0], rotated[1, 0]
+interpolants = range(100000)
 
 def init():
-    ax.set_xlim(-100, 100)
-    ax.set_ylim(-100, 100)
-    return point1, point2
+    return ship1.draw(), ship2.draw()
 
-def update_rotation(t):
-    angle = np.deg2rad(t)
+def update(frame):
+    dt = 1 / framerate
+    ship1.angle += 1/100
+    ship2.angle -= 1/100
 
-    # First point rotates at radius 50
-    x1, y1 = rotate(0, 50, angle)
-    point1.set_data(x1, y1)
-
-    # Second point rotates at radius 30
-    x2, y2 = rotate(0, 30, -angle)  # rotating in opposite direction
-    point2.set_data(x2, y2)
-
-    return point1, point2
+    ship1.update(dt)
+    ship2.update(dt)
+    return ship1.draw(), ship2.draw()
 
 ani = animation.FuncAnimation(
-    fig,
-    update_rotation,
-    frames=interpolants,
-    init_func=init,
-    blit=True,
-    interval=1000 / framerate
+    fig, update, frames=interpolants, init_func=init,
+    blit=True, interval=1000 / framerate
 )
 
 plt.show()
