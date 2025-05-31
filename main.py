@@ -3,35 +3,39 @@ import matplotlib.animation as animation
 import numpy as np
 
 fig, ax = plt.subplots()
-point, = plt.plot([], [], 'ro')
+
+point1, = plt.plot([], [], 'ro')  # red point
+point2, = plt.plot([], [], 'bo')  # blue point
 
 interpolants = range(1000000)
-framerate = 60 # [hz]
-v0 = 10 # [coord / s]
+framerate = 60
 
 def rotate(x, y, rad):
     rot_matrix = np.array([
         [np.cos(rad), -np.sin(rad)],
         [np.sin(rad),  np.cos(rad)]
     ])
-    vector = np.array([[x],
-                       [y]])
+    vector = np.array([[x], [y]])
     rotated = rot_matrix @ vector
     return rotated[0, 0], rotated[1, 0]
 
 def init():
-    ax.set_xlim(-100, 100)   # centered around 0
-    ax.set_ylim(-100, 100)   # centered around 0
-    return point,
+    ax.set_xlim(-100, 100)
+    ax.set_ylim(-100, 100)
+    return point1, point2
 
 def update_rotation(t):
-    radius = 70
-    x0,y0 = 0,radius
-    
-    x,y = rotate(x0,y0,np.deg2rad(t))    
+    angle = np.deg2rad(t)
 
-    point.set_data(x, y)
-    return point,
+    # First point rotates at radius 50
+    x1, y1 = rotate(0, 50, angle)
+    point1.set_data(x1, y1)
+
+    # Second point rotates at radius 30
+    x2, y2 = rotate(0, 30, -angle)  # rotating in opposite direction
+    point2.set_data(x2, y2)
+
+    return point1, point2
 
 ani = animation.FuncAnimation(
     fig,
@@ -39,7 +43,7 @@ ani = animation.FuncAnimation(
     frames=interpolants,
     init_func=init,
     blit=True,
-    interval=1000 / framerate  # milliseconds per frame
+    interval=1000 / framerate
 )
 
 plt.show()
