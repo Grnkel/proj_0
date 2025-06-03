@@ -19,8 +19,8 @@ class World():
         self.ax.set_xlim(-size, size)
         self.ax.set_ylim(-size, size)
 
-    def create_ship(self, start_pos=(0, 0), speed=0, color='b', trail_length=0):
-        ship = Ship(self.ax, start_pos, speed, color, trail_length)
+    def create_ship(self, start_pos=(0, 0), speed=0, angle=0, color='b', trail_length=0):
+        ship = Ship(self.ax, start_pos, speed, angle, color, trail_length)
         self.entities.append(ship)
         return ship
     
@@ -39,7 +39,7 @@ class World():
 
         for ship in self.entities: # updates all ships
             ship.update(1 / self.framerate) 
-            
+
         return self.draw_entities()
     
     def start(self):

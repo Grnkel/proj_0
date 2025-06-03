@@ -14,11 +14,8 @@ size = 100
 world = World(framerate, frames, size)
 
 # ships
-ship1 = world.create_ship(start_pos=(0, 50), speed=20, color='r', trail_length=20)
-ship2 = world.create_ship(start_pos=(0, -50), speed=5, color='b', trail_length=20)
-
-ship1.set_direction(0)  
-ship2.set_direction(-np.pi)  
+ship1 = world.create_ship(start_pos=(0, 50), speed=20, angle=0, color='r', trail_length=20)
+ship2 = world.create_ship(start_pos=(0, -50), speed=5, angle=-np.pi, color='b', trail_length=20)
 
 # world function
 def function():
