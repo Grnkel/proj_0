@@ -18,6 +18,11 @@ class World():
         self.ax.set_xlim(-size, size)
         self.ax.set_ylim(-size, size)
 
+    def create_ship(self, *args, **kwargs):
+        kwargs['world'] = self
+        ship = Ship(self.ax, *args, **kwargs)
+        return self.add_ship(ship)
+
     def add_ship(self, ship):
         self.entities.append(ship)
         return ship
@@ -39,6 +44,7 @@ class World():
             ship.update(1 / self.framerate) 
 
         return self.draw_entities()
+
     
     def start(self):
         ani = animation.FuncAnimation( # you need to have a variable for this

@@ -2,13 +2,19 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Ship:
-    def __init__(self, ax, start_pos=(0, 0), speed=0, angle=0, color='r', trail_length=100):
+    def __init__(self, ax, start_pos=(0, 0), speed=0, angle=0, color='r', trail_length=100, world=None):
+        self.world = world  # Optional reference to the World instance
         self.position = np.array(start_pos, dtype=float)
+        self.position0 = self.position 
         self.speed = speed
+        self.speed0 = self.speed 
         self.angle = angle
+        self.angle0 = self.angle 
+
+        self.target = None
 
         self.trail_length = trail_length
-        self.history = [self.position.copy()]  # list of past positions
+        self.history = [self.position.copy()]
         self.trail_dots = [ax.plot([], [], color + 'o', alpha=1.0)[0] for _ in range(trail_length)]
 
     def update(self, dt):
@@ -27,7 +33,7 @@ class Ship:
             if i < len(self.history):
                 x, y = self.history[i]
                 dot.set_data(x, y)
-                dot.set_alpha(np.exp(-5 * (i / self.trail_length)))  # fade with index
+                dot.set_alpha(np.exp(-6 * (i / self.trail_length)))  # fade with index
             else:
                 dot.set_data([], [])
 
