@@ -13,16 +13,16 @@ size = 100
 # init
 world = World(framerate, frames, size)
 
-ship1 = world.create_ship((0, 50), 100, 0, 'r', 20)
-ship2 = world.create_ship((-25, -25), 50, -np.pi/2, 'b', 20)
-ship3 = world.create_ship((0, 0), 50, -np.pi/4 + 0.2, 'g', 20)
+ship1 = world.create_ship((0, 50), 150, 0, 'r', 20)
+ship2 = world.create_ship((-25, -25), 70, -np.pi/2, 'b', 20)
+ship3 = world.create_ship((0, 0), 200, -np.pi/4 + 0.2, 'g', 20)
 
 # functions
 def border():
     x1,y1 = ship3.position
-    world_angle = np.arctan(y1/x1) + np.pi * min(x1, 0) / x1 
-    pos_angle = world_angle + np.pi/2
-    neg_angle = world_angle - np.pi/2
+    world_angle = (np.arctan(y1/x1) + np.pi * min(x1, 0) / x1) % (2*np.pi)
+    pos_angle = (world_angle + np.pi/2) % (2*np.pi)
+    neg_angle = (world_angle - np.pi/2) % (2*np.pi)
     cartesian_dist = np.sqrt(np.square(x1) + np.square(y1))
 
     if (ship3.angle - world_angle < np.pi/2) and (ship3.angle - world_angle > 0):
@@ -53,7 +53,7 @@ def robot():
         print("BOOM")
         input()
 
-#world.add_function(border)
+world.add_function(border)
 world.add_function(robot)
 world.add_function(rotate_ship)
 

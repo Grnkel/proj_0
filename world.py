@@ -19,11 +19,12 @@ class World():
         self.ax.set_ylim(-size, size)
 
     def create_ship(self, *args, **kwargs):
+        # constructor for ships
         kwargs['world'] = self
         ship = Ship(self.ax, *args, **kwargs)
-        return self.add_ship(ship)
+        return self.add_entity(ship)
 
-    def add_ship(self, ship):
+    def add_entity(self, ship):
         self.entities.append(ship)
         return ship
     
@@ -32,15 +33,16 @@ class World():
         self.functions.append(func) 
 
     def draw_entities(self):
+        # drawing all entities
         draw = []
         for ship in self.entities: 
             draw += ship.draw()
         return draw
 
     def update(self, frame):
+        # updating functions and ships
         for function in self.functions:
             function()
-
         for ship in self.entities:
             ship.update(1 / self.framerate)
         

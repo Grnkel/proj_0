@@ -18,6 +18,14 @@ class Ship:
         self.history = [self.position.copy()]
         self.trail_dots = [ax.plot([], [], color + 'o', alpha=1.0)[0] for _ in range(trail_length)]
 
+    @property
+    def angle(self):
+        return self._angle
+
+    @angle.setter
+    def angle(self, value):
+        self._angle = value % (2 * np.pi)
+
     def update(self, dt):
         # updating next position
         dx = self.speed * np.cos(self.angle) * dt
