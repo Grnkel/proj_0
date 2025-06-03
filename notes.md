@@ -1,3 +1,9 @@
+# Vad håller jag på med nu?
+* __fixa klass för världen__
+    * updateringar, logik (global constraints)
+    * listor av enheter
+
+
 # Idéer att testa
 
 * __Ship klassen för punkten__

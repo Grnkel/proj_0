@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Ship:
-    def __init__(self, ax, start_pos=(0, 0), speed=0, color='r', trail_length=20):
+    def __init__(self, ax, start_pos=(0, 0), speed=0, color='r', trail_length=100):
         self.position = np.array(start_pos, dtype=float)
         self.speed = speed
         self.angle = 0
@@ -23,9 +23,6 @@ class Ship:
         self.history.insert(0, self.position.copy())  # newest at the front
         if len(self.history) > self.trail_length:
             self.history.pop()
-
-    def get_position(self):
-        return self.position
 
     def draw(self):
         # Update each trailing dot with position and fading alpha

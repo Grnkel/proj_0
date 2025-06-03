@@ -3,30 +3,25 @@ import matplotlib.animation as animation
 import numpy as np
 
 from ship import Ship  
+from world import World
 
-# Settings
+# settings
 framerate = 60
-interpolants = range(100000)
-world_size = 100
+frames = range(100000)
+size = 100
 
-fig, ax = plt.subplots()
-ax.set_xlim(-world_size, world_size)
-ax.set_ylim(-world_size, world_size)
+# world
+world = World(framerate, frames, size)
 
-# Create two ships
-ship1 = Ship(ax, start_pos=(0, 50), speed=20, color='r')
-ship2 = Ship(ax, start_pos=(0, -50), speed=10, color='b')
+# ships
+ship1 = world.create_ship(start_pos=(0, 50), speed=20, color='r', trail_length=20)
+ship2 = world.create_ship(start_pos=(0, -50), speed=5, color='b', trail_length=20)
 
 ship1.set_direction(0)  
-ship2.set_direction(-np.pi)
+ship2.set_direction(-np.pi)  
 
-
-def init():
-    return ship1.draw() + ship2.draw()
-
-def update(frame):
-    dt = 1 / framerate
-
+# world function
+def function():
     dx = ship1.position[0] - ship2.position[0]
     dy = ship1.position[1] - ship2.position[1]
 
@@ -44,13 +39,8 @@ def update(frame):
         print("BOOM")
         input()
 
-    ship1.update(dt)
-    ship2.update(dt)
-    return ship1.draw() + ship2.draw()
+world.add_function(function)
 
-ani = animation.FuncAnimation(
-    fig, update, frames=interpolants, init_func=init,
-    blit=True, interval=1000 / framerate
-)
+# start simulation
 
-plt.show()
+world.start()
