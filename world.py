@@ -28,26 +28,30 @@ class World():
         return ship
     
     def add_function(self, func):
-        self.functions.append(func) # adds new function to world
+        # adds new function to world
+        self.functions.append(func) 
 
     def draw_entities(self):
         draw = []
-        for ship in self.entities: # returns new points
+        for ship in self.entities: 
             draw += ship.draw()
         return draw
 
     def update(self, frame):
-        for function in self.functions: # activates all functions
+        for function in self.functions:
             function()
 
-        for ship in self.entities: # updates all ships
-            ship.update(1 / self.framerate) 
+        for ship in self.entities:
+            ship.update(1 / self.framerate)
+        
+        # giving world torus shape
+        shift = ((ship.position + self.size) % (2 * self.size))
+        ship.position = shift - self.size 
 
         return self.draw_entities()
-
     
     def start(self):
-        ani = animation.FuncAnimation( # you need to have a variable for this
+        ani = animation.FuncAnimation( 
             fig=self.fig, 
             func=self.update, 
             frames=self.frames, 
@@ -55,6 +59,5 @@ class World():
             blit=True, 
             interval=1000 / self.framerate
         )
-
         plt.show()
 

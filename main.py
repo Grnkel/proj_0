@@ -10,17 +10,12 @@ framerate = 60
 frames = range(100000)
 size = 100
 
-# world
+# init
 world = World(framerate, frames, size)
 
-# ships
 ship1 = world.create_ship((0, 50), 100, 0, 'r', 20)
 ship2 = world.create_ship((-25, -25), 50, -np.pi/2, 'b', 20)
 ship3 = world.create_ship((0, 0), 50, -np.pi/4 + 0.2, 'g', 20)
-
-def torus():
-    shift = ((ship3.position + world.size) % (2 * world.size))
-    ship3.position = shift - world.size
 
 # functions
 def border():
@@ -46,7 +41,6 @@ def border():
     #ship3.angle += 
     #print(np.rad2deg(world_angle))
 
-
 def rotate_ship():
     ship1.angle -= ship1.speed / (world.size/2) * (1 / framerate)
 
@@ -60,7 +54,6 @@ def robot():
         input()
 
 #world.add_function(border)
-world.add_function(torus)
 world.add_function(robot)
 world.add_function(rotate_ship)
 
