@@ -1,8 +1,7 @@
 # Vad håller jag på med nu?
 * __fixa klass för världen__
     * updateringar, logik (global constraints)
-    * listor av enheter
-
+    * funktion att enforcea gränser
 
 # Idéer att testa
 
@@ -19,13 +18,14 @@
 
     * skepp kan skjuta varandra och att det blir en träff - skeppet försvinner
 
+    * instansera massa skepp som vill skjuta varandra randomly, går det att få ett skepp att fatta att den blir jagad? olika lag av skepp som strider mot varandra, randomly blir arga på varandra och börjar skjuta
+
+    * vill jag skapa en topologisk torus så kan jag använda modulus operatorn på punkternas kordinater.
+
 * __skapa en klass för världen__
     
     * instansera begränsningar, global constraints (hastighet, sväng)
 
-    * lista för alla objekt
-    
-    * updatera hela världen istället för objekt
 
 * __jordklot istället för kordinatsystem__
 

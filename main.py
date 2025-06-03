@@ -20,7 +20,15 @@ ship2 = Ship(world.ax, (-25, -25), 50, -np.pi, 'b', 20)
 world.add_ship(ship1)
 world.add_ship(ship2)
 
+def torus():
+    ship2.position = ((ship2.position + world.size) % (2 * world.size)) - world.size
+
 # functions
+def border():
+    radius = 75
+
+    pass
+
 def rotate_ship():
     ship1.angle -= ship1.speed / (world.size/2) * (1 / framerate)
 
@@ -41,8 +49,9 @@ def robot():
         print("BOOM")
         input()
 
-world.add_function(robot)
+#world.add_function(robot)
 world.add_function(rotate_ship)
+world.add_function(torus)
 
 # start simulation
 world.start()
