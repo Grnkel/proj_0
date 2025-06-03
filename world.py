@@ -39,7 +39,7 @@ class World():
 
         for ship in self.entities: # updates all ships
             ship.update(1 / self.framerate) 
-
+            
         return self.draw_entities()
     
     def start(self):
