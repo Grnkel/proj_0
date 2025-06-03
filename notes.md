@@ -31,3 +31,6 @@
 
     * skeppen existerar enbart inom ett visst spann (mellan radien av jorden och av atmosfären)
 
+* __höj frameraten så att det är enbart en skala av hur kontinuerlig man vill ha simuleringen__
+
+

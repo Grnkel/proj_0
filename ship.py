@@ -27,7 +27,7 @@ class Ship:
             if i < len(self.history):
                 x, y = self.history[i]
                 dot.set_data(x, y)
-                dot.set_alpha(1.0 - i / self.trail_length)  # fade with index
+                dot.set_alpha(np.exp(-5 * (i / self.trail_length)))  # fade with index
             else:
                 dot.set_data([], [])
 

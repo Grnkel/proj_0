@@ -14,11 +14,17 @@ size = 100
 world = World(framerate, frames, size)
 
 # ships
-ship1 = world.create_ship(start_pos=(0, 50), speed=20, angle=0, color='r', trail_length=20)
-ship2 = world.create_ship(start_pos=(0, -50), speed=5, angle=-np.pi, color='b', trail_length=20)
+ship1 = Ship(world.ax, (0, 50), 100, 0, 'r', 20)
+ship2 = Ship(world.ax, (-25, -25), 50, -np.pi, 'b', 20)
 
-# world function
-def function():
+world.add_ship(ship1)
+world.add_ship(ship2)
+
+# functions
+def rotate_ship():
+    ship1.angle -= ship1.speed / (world.size/2) * (1 / framerate)
+
+def robot():
     dx = ship1.position[0] - ship2.position[0]
     dy = ship1.position[1] - ship2.position[1]
 
@@ -27,17 +33,16 @@ def function():
     else:
         new_angle = np.arctan(dy/dx) + np.pi
 
-    ship1.angle -= 1/100
     ship2.angle = new_angle
-    print(round(np.rad2deg(new_angle),3), "\t ", (round(dx,1),round(dy,1)))
+    #print(round(np.rad2deg(new_angle),3), "\t ", (round(dx,1),round(dy,1)))
 
     proximity = np.sqrt(np.square(dx) + np.square(dy))
     if proximity < 3:
         print("BOOM")
         input()
 
-world.add_function(function)
+world.add_function(robot)
+world.add_function(rotate_ship)
 
 # start simulation
-
 world.start()

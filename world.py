@@ -1,7 +1,6 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
-
 from ship import Ship  
 
 class World():
@@ -19,8 +18,7 @@ class World():
         self.ax.set_xlim(-size, size)
         self.ax.set_ylim(-size, size)
 
-    def create_ship(self, start_pos=(0, 0), speed=0, angle=0, color='b', trail_length=0):
-        ship = Ship(self.ax, start_pos, speed, angle, color, trail_length)
+    def add_ship(self, ship):
         self.entities.append(ship)
         return ship
     
