@@ -7,7 +7,7 @@ from ship import Ship
 from world import World
 
 # settings
-FRAMERATE = 100
+FRAMERATE = 60
 SIZE = 100
 
 # init
@@ -42,18 +42,18 @@ def border():
 def rotate_ship(ship):
     ship.angle -= ship.speed / (world.size/2) * (1 / FRAMERATE)
 
-def robot():
-    dx = ship0.position[0] - ship1.position[0]
-    dy = ship0.position[1] - ship1.position[1]
-    ship1.angle = np.arctan(dy/dx) + np.pi * min(dx, 0) / dx 
+def robot(ship_0, ship_1):
+    dx = ship_0.position[0] - ship_1.position[0]
+    dy = ship_0.position[1] - ship_1.position[1]
+    ship_1.angle = np.arctan(dy/dx) + np.pi * min(dx, 0) / dx 
     proximity = np.sqrt(np.square(dx) + np.square(dy))
     if proximity < 3:
         print("BOOM")
+
         input()
 
-
 #world.add_function(border)
-world.add_function(robot)
+world.add_function(lambda: robot(ship0, ship1))
 world.add_function(lambda: rotate_ship(ship0))
 
 # start simulation
