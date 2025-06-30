@@ -21,7 +21,9 @@ class Ship:
 
         self.n_trailing_dots = n_trailing_dots
         self.history = [self.position.copy()]
-        self.trail_dots = [ax.plot([], [], color + 'o', alpha=1.0, )[0] for _ in range(n_trailing_dots)]
+
+        # TODO TODO TODO gör denna till scatter plot
+        self.trail_dots = [ax.plot([], [], color + 'o', alpha=1.0)[0] for _ in range(n_trailing_dots)]
 
     @property
     def angle(self):
