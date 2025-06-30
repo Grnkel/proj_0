@@ -13,10 +13,15 @@ class Ship:
 
         self.world = world
         self.target = None # TODO
-
         self.trail_length = trail_length
+
+        # Calculating number of trailing dots
+        frame_time = (1 / self.world.framerate)
+        n_trailing_dots = int(trail_length / (frame_time * self.speed))
+
+        self.n_trailing_dots = n_trailing_dots
         self.history = [self.position.copy()]
-        self.trail_dots = [ax.plot([], [], color + 'o', alpha=1.0)[0] for _ in range(trail_length)]
+        self.trail_dots = [ax.plot([], [], color + 'o', alpha=1.0)[0] for _ in range(n_trailing_dots)]
 
     @property
     def angle(self):
@@ -34,7 +39,7 @@ class Ship:
 
         # past position history
         self.history.insert(0, self.position.copy())
-        if len(self.history) > self.trail_length:
+        if len(self.history) > self.n_trailing_dots:
             self.history.pop()
 
     def draw(self):

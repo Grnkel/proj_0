@@ -2,6 +2,7 @@
 * __fixa klass för världen__
     * updateringar, logik (global constraints)
     * funktion att enforcea gränser
+        * håller på att få saker att ändra riktning enligt en viss algoritm
 
 # Idéer att testa
 
@@ -20,17 +21,21 @@
 
     * instansera massa skepp som vill skjuta varandra randomly, går det att få ett skepp att fatta att den blir jagad? olika lag av skepp som strider mot varandra, randomly blir arga på varandra och börjar skjuta
 
-    * vill jag skapa en topologisk torus så kan jag använda modulus operatorn på punkternas kordinater.
-
-* __skapa en klass för världen__
-    
-    * instansera begränsningar, global constraints (hastighet, sväng)
-
+    * använd vektorer istället för polärer - en updateringsfunktion som använder sig av båda två och kopplar dem. använd detta för att visualisera vektorfält för hur saker och ting ska färdas runt kartan
 
 * __jordklot istället för kordinatsystem__
 
     * skeppen existerar enbart inom ett visst spann (mellan radien av jorden och av atmosfären)
 
 * __höj frameraten så att det är enbart en skala av hur kontinuerlig man vill ha simuleringen__
+
+* __gör skiten till mer pararell och höj prestandan__
+    * tydligen kunde man vektorisera
+    * om det är en supertung beräkning kan man ta multithreading
+
+* __egen klass för tracking som skepp har__
+    * det finns en "tracked" och en "tracking" 
+    * lägg till error och sånt
+    * att man har en "ghost" som på volvo
 
 

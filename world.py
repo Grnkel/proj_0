@@ -1,18 +1,18 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
+from multiprocessing import Process
 import numpy as np
 from ship import Ship  
+import time
 
 class World():
-    def __init__(self, framerate, frames, size, max_turn=1, max_speed=1):
+    def __init__(self, framerate, size):
+        # Do not touch these
         self.framerate = framerate
-        self.frames = frames
         self.size = size
+
         self.entities = []
         self.functions = []
-
-        self.max_turn = max_turn
-        self.max_speed = max_speed
 
         self.fig, self.ax = plt.subplots()
         self.ax.set_xlim(-size, size)
@@ -40,6 +40,8 @@ class World():
         return draw
 
     def update(self, frame):
+
+        
         # updating functions and ships
         for function in self.functions:
             function()
@@ -56,10 +58,8 @@ class World():
         ani = animation.FuncAnimation( 
             fig=self.fig, 
             func=self.update, 
-            frames=self.frames, 
-            init_func=self.draw_entities,
-            blit=True, 
-            interval=1000 / self.framerate
+            interval=1000 / self.framerate,
+            blit=True
         )
         plt.show()
 
