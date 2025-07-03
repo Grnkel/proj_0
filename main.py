@@ -10,7 +10,7 @@ from world import World
 matplotlib.use('TkAgg')
 
 # settings
-FRAMERATE = 60
+FRAMERATE = 100
 SIZE = 100
 
 # init

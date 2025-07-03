@@ -12,16 +12,13 @@ class Ship:
         self.angle0 = self.angle 
 
         self.world = world
-        self.target = None # TODO
         self.trail_length = trail_length
 
         # Calculating number of trailing dots
         frame_time = (1 / self.world.framerate)
         n_trailing_dots = int(trail_length / (frame_time * self.speed)) if self.speed > 0 else 1
-
         self.n_trailing_dots = n_trailing_dots
         self.history = [self.position.copy()]
-
         # TODO TODO TODO gör denna till scatter plot
         self.trail_dots = [ax.plot([], [], color + 'o', alpha=1.0)[0] for _ in range(n_trailing_dots)]
 
@@ -41,8 +38,7 @@ class Ship:
 
         # past position history
         self.history.insert(0, self.position.copy())
-        if len(self.history) > self.n_trailing_dots:
-            self.history.pop()
+        self.history = self.history[:self.n_trailing_dots]
 
     def draw(self):
         # trailing dots with fading opacity
