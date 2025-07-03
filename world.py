@@ -1,6 +1,5 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-from multiprocessing import Process
 import numpy as np
 from ship import Ship  
 import time
@@ -65,7 +64,8 @@ class World():
             fig=self.fig, 
             func=self.update, 
             interval=1000 / self.framerate - self.frametime_ms,
-            blit=True
+            blit=True,
+            cache_frame_data=False
         )
         plt.show()
 

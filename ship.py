@@ -17,7 +17,7 @@ class Ship:
 
         # Calculating number of trailing dots
         frame_time = (1 / self.world.framerate)
-        n_trailing_dots = int(trail_length / (frame_time * self.speed))
+        n_trailing_dots = int(trail_length / (frame_time * self.speed)) if self.speed > 0 else 1
 
         self.n_trailing_dots = n_trailing_dots
         self.history = [self.position.copy()]
@@ -49,7 +49,7 @@ class Ship:
         for i, dot in enumerate(self.trail_dots):
             if i < len(self.history):
                 x, y = self.history[i]
-                dot.set_data(x, y)
+                dot.set_data([x], [y])
                 dot.set_alpha(np.exp(-6 * (i / self.trail_length))) 
             else:
                 dot.set_data([], [])
