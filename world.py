@@ -24,7 +24,6 @@ class World():
 
     def create_ship(self, *args, **kwargs):
         # constructor for ships
-        kwargs['world'] = self
         ship = Ship(self.ax, *args, **kwargs)
         return self.add_entity(ship)
 
