@@ -40,9 +40,14 @@ def robot(ship_0: Ship, ship_1: Ship):
         print("BOOM")
         input()
 
+def slowdown(ship: Ship, dist):
+    dist = ship.speed / (1 / FRAMERATE)
+    ship.speed = 0 if ship.speed < 10**-2 else ship.speed
+
 # init functions
 world.add_function(lambda: robot(ship0, ship1))
 world.add_function(lambda: rotate_ship(ship0))
+world.add_function(lambda: slowdown(ship2, 0.99))
 #world.add_function(lambda: border(ship2))
 
 # start simulation

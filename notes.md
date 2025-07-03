@@ -1,3 +1,5 @@
+* __Varje skepp borde verkligen ha funktionerna inom sig istället__
+
 * __Fixa klass för världen__
     * Uppdateringar, logik (global constraints)
     * Funktion för att enforcea gränser
