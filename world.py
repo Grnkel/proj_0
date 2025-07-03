@@ -6,15 +6,16 @@ import time
 
 class World():
     def __init__(self, framerate, size):
-        self.framerate = framerate
+        # initializing world
         self.size = size
-
         self.entities = []
         self.functions = []
-
-        self.timer = FrameTimer(self, 10)
-        self.frametime_ms = 0
-
+        # fixed physics time step
+        self.framerate = framerate
+        self.physics_dt = 1.0 / framerate
+        self.accumulated_time = 0.0
+        self.last_time = time.perf_counter()
+        # creating figure and axes
         self.fig, self.ax = plt.subplots()
         self.ax.set_xlim(-size, size)
         self.ax.set_ylim(-size, size)
@@ -41,21 +42,24 @@ class World():
         return draw
 
     def update(self, frame):
-        #update timer
-        self.timer.check()
-        
-        # updating functions and ships
-        for function in self.functions:
-            function()
-        for ship in self.entities:
-            assert(type(ship) == Ship)
-            ship.update(1 / self.framerate)
-            # giving world torus shape
-            shift = ((ship.position + self.size) % (2 * self.size))
-            ship.position = shift - self.size 
-
-        # update timer
-        self.timer.check()
+        # calculate real elapsed time
+        current_time = time.perf_counter()
+        frame_time = current_time - self.last_time
+        self.last_time = current_time
+        # accumulate time and run physics in fixed time steps
+        self.accumulated_time += frame_time
+        # run deterministic simulation with fixed time steps
+        while self.accumulated_time >= self.physics_dt:
+            # updating functions and ships with fixed dt
+            for function in self.functions:
+                function()
+            for ship in self.entities:
+                assert(type(ship) == Ship)
+                ship.update(self.physics_dt)
+                # giving world torus shape
+                shift = ((ship.position + self.size) % (2 * self.size))
+                ship.position = shift - self.size 
+            self.accumulated_time -= self.physics_dt
         return self.draw_entities()
     
     def start(self):
@@ -63,27 +67,9 @@ class World():
         ani = animation.FuncAnimation( 
             fig=self.fig, 
             func=self.update, 
-            interval=1000 / self.framerate - self.frametime_ms,
+            interval=0,
             blit=True,
             cache_frame_data=False
         )
         plt.show()
-
-class FrameTimer():
-    # class for checking frametimes
-    def __init__(self, world: World, width):
-        # init necessary class variables
-        self.world = world
-        self.width = width
-        self.history = np.zeros(width)
-        self.time = time.perf_counter()
-        self.index = 0
-
-    def check(self):
-        # updates world with time since last check
-        result = time.perf_counter() - self.time
-        self.time = time.perf_counter()
-        self.history[self.index] = result
-        self.index = (self.index + 1) % self.width
-        self.world.frametime_ms = np.mean(self.history)
         
