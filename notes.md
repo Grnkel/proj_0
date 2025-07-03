@@ -13,6 +13,8 @@
 
     * Varje skepp har ett målskepp som åker perfekt, skeppet reglerar för att följa efter, kan vara så att målskeppet saktar ner om det åker för långt bort
     
+    * det handlar mer om "pure trajectories" och "regler", sedan hur skepp försöker följa trajectories och blir begränsad av reglerna 
+    
     * När den kommer för nära en viss kant så ändrar den riktning , kan använda random eller något beroende på
 
     * Gör att den kan ha olika punkter som den hoppar mellan lite som gravitation och jorden
