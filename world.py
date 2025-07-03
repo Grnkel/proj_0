@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 import numpy as np
-from ship import Ship  
 import time
+
+# own classes
+from ship import Ship  
 
 class World():
     def __init__(self, framerate, size):
