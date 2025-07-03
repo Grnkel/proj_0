@@ -7,7 +7,7 @@ import matplotlib
 from ship import Ship  
 from world import World
 
-#matplotlib.use('TkAgg')
+matplotlib.use('TkAgg')
 
 # settings
 FRAMERATE = 100
@@ -18,6 +18,7 @@ world = World(FRAMERATE, SIZE)
 ship0 = world.create_ship((0, 50), 100, 0, 'r', 20)
 ship1 = world.create_ship((-25, -25), 70, -np.pi/2, 'b', 20)
 ship2 = world.create_ship((0, 0), 100, -np.pi/4 + 0.2, 'g', 20)
+ship2 = world.create_ship((-100, -100), 100, 5 * np.pi/4 + 0.2, 'y', 20)
 
 # functions
 def border(ship: Ship):

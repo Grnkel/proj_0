@@ -46,8 +46,9 @@ class Ship:
             assert(type(tail_dot) == matplotlib.lines.Line2D)
             x, y = self.history[i]
             tail_dot.set_data([x], [y])
-            #tail_dot.set_
-            alpha = np.exp(-6 * (i / len(self.tail_dots))) # TODO
+            fraq = i / len(self.tail_dots)
+            tail_dot.set_markersize(10 * (1-fraq))
+            alpha = np.exp(-6 * fraq) # TODO
             tail_dot.set_alpha(alpha)
         
         return self.tail_dots
