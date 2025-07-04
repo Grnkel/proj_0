@@ -55,13 +55,13 @@ class World():
             for function in self.functions:
                 function()
             for ship in self.entities:
-                assert(type(ship) == Ship)
                 ship.update(self.physics_dt)
                 # giving world torus shape
                 shift = ((ship.position + self.size) % (2 * self.size))
                 ship.position = shift - self.size 
             self.accumulated_time -= self.physics_dt
-        return self.draw_entities()
+            draw = self.draw_entities()
+        return draw
     
     def start(self):
         # starts animation

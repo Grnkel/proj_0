@@ -10,15 +10,15 @@ from world import World
 matplotlib.use('TkAgg')
 
 # settings
-FRAMERATE = 100
+FRAMERATE = 60
 SIZE = 100
 
 # init
 world = World(FRAMERATE, SIZE)
-ship0 = world.create_ship((0, 50), 100, 0, 'r', 20)
-ship1 = world.create_ship((-25, -25), 70, -np.pi/2, 'b', 20)
-ship2 = world.create_ship((0, 0), 100, -np.pi/4 + 0.2, 'g', 20)
-ship2 = world.create_ship((-100, -100), 100, 5 * np.pi/4 + 0.2, 'y', 20)
+ship0 = world.create_ship((0, 50), 100, 0, 'r')
+ship1 = world.create_ship((-25, -25), 70, -np.pi/2, 'b')
+ship2 = world.create_ship((0, 0), 100, -np.pi/4, 'g')
+ship2 = world.create_ship((70, 70), 50, 5 * np.pi/4, 'y')
 
 # functions
 def border(ship: Ship):
@@ -41,15 +41,14 @@ def robot(ship_0: Ship, ship_1: Ship):
         print("BOOM")
         input()
 
-def slowdown(ship: Ship, dist):
-    elapsed_distance = ship.speed / (1 / FRAMERATE)
-    ship.speed = 0 if ship.speed < 10**-2 else ship.speed * (elapsed_distance / dist)
+def slowdown(ship: Ship, acceleration: float):
+    ship.speed -= acceleration * world.physics_dt
 
 # init functions
 #world.add_function(lambda: border(ship2))
 world.add_function(lambda: rotate_ship(ship0))
 world.add_function(lambda: robot(ship0, ship1))
-#world.add_function(lambda: slowdown(ship2, 10))
+world.add_function(lambda: slowdown(ship2, 10))
 
 
 # start simulation
