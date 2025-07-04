@@ -60,8 +60,7 @@ class World():
                 shift = ((ship.position + self.size) % (2 * self.size))
                 ship.position = shift - self.size 
             self.accumulated_time -= self.physics_dt
-            draw = self.draw_entities()
-        return draw
+        return self.draw_entities()
     
     def start(self):
         # starts animation

@@ -36,7 +36,7 @@ class Ship:
         self.history.insert(0, self.position.copy())
         dots_needed = max(int(self.tail_strength * (dt * (self.speed))), 1)
         # add or remove dots based on the number needed
-        if len(self.tail_dots) <= dots_needed:
+        if len(self.tail_dots) < dots_needed:
             new_dot = self.ax.plot([], [], self.color + 'o', alpha=1.0, markersize=10)[0]
             self.tail_dots.append(new_dot)
         elif len(self.tail_dots) > dots_needed:
