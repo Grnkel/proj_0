@@ -1,7 +1,7 @@
 import numpy as np
 
 class Ship:
-    def __init__(self, ax, start_pos=(0, 0), speed=0, angle=0, color='r', tail_strength=15):
+    def __init__(self, ax, start_pos=(0, 0), speed=0, angle=0, color='r', tail_strength=20):
         self.position = np.array(start_pos, dtype=float)
         self.speed = speed
         self.angle = angle
@@ -36,24 +36,24 @@ class Ship:
         self.history.insert(0, self.position.copy())
         dots_needed = max(int(self.tail_strength * (dt * (self.speed))), 1)
         # add or remove dots based on the number needed
-        if len(self.tail_dots) < dots_needed:
+        if np.less(len(self.tail_dots), dots_needed):
             new_dot = self.ax.plot([], [], self.color + 'o', alpha=1.0, markersize=10)[0]
             self.tail_dots.append(new_dot)
-        elif len(self.tail_dots) > dots_needed:
+        elif np.greater(len(self.tail_dots), dots_needed):
             dot = self.tail_dots.pop()
             dot.remove()
         # trim history regularly
-        if len(self.history) - len(self.tail_dots) > 10:
+        
+        if np.less(10, len(self.history) - len(self.tail_dots)):
             self.history = self.history[:len(self.tail_dots)]
 
     def draw(self):
         # Update existing trail dots instead of creating new ones
         for i, tail_dot in enumerate(self.tail_dots):
-            if i < len(self.history):
+            if np.less(i, len(self.history)):
                 x, y = self.history[i]
                 tail_dot.set_data([x], [y])
                 fraq = i / len(self.tail_dots)
-                
                 alpha = np.exp(-4 * fraq)
                 tail_dot.set_markersize(10 * alpha)
                 tail_dot.set_alpha(alpha)

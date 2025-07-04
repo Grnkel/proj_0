@@ -50,14 +50,14 @@ class World():
         # accumulate time and run physics in fixed time steps
         self.accumulated_time += frame_time
         # run deterministic simulation with fixed time steps
-        while self.accumulated_time >= self.physics_dt:
+        while np.greater_equal(self.accumulated_time, self.physics_dt):
             # updating functions and ships with fixed dt
             for function in self.functions:
                 function()
             for ship in self.entities:
                 ship.update(self.physics_dt)
                 # giving world torus shape
-                shift = ((ship.position + self.size) % (2 * self.size))
+                shift = np.mod((ship.position + self.size), (2 * self.size))
                 ship.position = shift - self.size 
             self.accumulated_time -= self.physics_dt
         return self.draw_entities()
@@ -68,7 +68,7 @@ class World():
             fig=self.fig, 
             func=self.update, 
             interval=0,
-            blit=True,
+            blit=False, # put to True if slow
             cache_frame_data=False
         )
         plt.show()

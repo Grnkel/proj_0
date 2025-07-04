@@ -7,6 +7,7 @@ import matplotlib
 from ship import Ship  
 from world import World
 
+# backend
 matplotlib.use('TkAgg')
 
 # settings
@@ -18,15 +19,15 @@ world = World(FRAMERATE, SIZE)
 ship0 = world.create_ship((0, 50), 100, 0, 'r')
 ship1 = world.create_ship((-25, -25), 70, -np.pi/2, 'b')
 ship2 = world.create_ship((0, 0), 100, -np.pi/4, 'g')
-ship2 = world.create_ship((70, 70), 50, 5 * np.pi/4, 'y')
+ship2 = world.create_ship((70, 70), 100, 5 * np.pi/4, 'y')
 
 # functions
 def border(ship: Ship):
     x1, y1 = ship.position
-    world_angle = np.arctan2(y1, x1) % (2*np.pi)
-    pos_angle = (world_angle + np.pi/2) % (2*np.pi)
-    neg_angle = (world_angle - np.pi/2) % (2*np.pi)
-    cartesian_dist = np.sqrt(np.square(x1) + np.square(y1))
+    world_angle = np.mod(np.arctan2(y1, x1), 2*np.pi)
+    cartesian_distance = np.sqrt(np.square(x1) + np.square(y1))
+    delta_angle = world_angle - ship.angle
+    print(np.rad2deg(delta_angle)) 
 
 def rotate_ship(ship: Ship):
     ship.angle -= ship.speed / (world.size/2) * (1 / FRAMERATE)
@@ -45,10 +46,12 @@ def slowdown(ship: Ship, acceleration: float):
     ship.speed -= acceleration * world.physics_dt
 
 # init functions
-#world.add_function(lambda: border(ship2))
+world.add_function(lambda: border(ship1))
 world.add_function(lambda: rotate_ship(ship0))
 world.add_function(lambda: robot(ship0, ship1))
 world.add_function(lambda: slowdown(ship2, 10))
+
+
 
 
 # start simulation

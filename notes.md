@@ -22,9 +22,6 @@
 * __Jordklot istället för koordinatsystem__
     * Skepp existerar enbart inom ett visst spann (mellan jordradien och atmosfären)
 
-* __Höj frameraten__
-    * Ska vara en skala av hur kontinuerlig simuleringen ska uppfattas
-
 * __Gör skiten mer parallell och höj prestandan__
     * Använd vektorisering där det går
     * För tyngre beräkningar — överväg multithreading
