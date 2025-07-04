@@ -10,7 +10,7 @@ class Ship:
         self.tail_strength = tail_strength
         self.history = []
         self.tail_dots = [] 
-
+    # TODO skaffa vektorer istället för deg + speed
     @property
     def angle(self):
         return self._angle
